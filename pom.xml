@@ -40,6 +40,13 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
+        <!-- Uber Cadence -->
+        <dependency>
+            <groupId>com.uber.cadence</groupId>
+            <artifactId>cadence-client</artifactId>
+            <version>3.7.2</version>
+        </dependency>
+
         <!-- Templates -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
