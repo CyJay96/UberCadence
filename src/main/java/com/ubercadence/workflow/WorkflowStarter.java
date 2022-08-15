@@ -1,4 +1,4 @@
-package com.ubercadence;
+package com.ubercadence.workflow;
 
 import com.uber.cadence.WorkflowExecution;
 import com.uber.cadence.WorkflowIdReusePolicy;
@@ -7,17 +7,15 @@ import com.uber.cadence.client.WorkflowClientOptions;
 import com.uber.cadence.client.WorkflowOptions;
 import com.uber.cadence.serviceclient.ClientOptions;
 import com.uber.cadence.serviceclient.WorkflowServiceTChannel;
-import com.ubercadence.workflow.WeatherWorkflow;
 
 public class WorkflowStarter {
 
-    //todo @Value
-    private static final String DOMAIN = "samples-domain";
+    private static final String DOMAIN = "weather-domain";
     private static final String DEFAULT_TASK_LIST = "cadence-weather-taskList";
-    private static final String WORKFLOW_ID = "test-workflow-id";
+    private static final String WORKFLOW_ID = "weather-workflow-id";
 
     @SuppressWarnings("CatchAndPrintStackTrace")
-    public static void main(String[] args) {
+    public static void startWorkflowStarter(String cityNameReq) {
         final WorkflowClient workflowClient =
                 WorkflowClient.newInstance(
                         new WorkflowServiceTChannel(ClientOptions.defaultInstance()),
@@ -34,9 +32,8 @@ public class WorkflowStarter {
 
         WeatherWorkflow getWeatherWorkflow = workflowClient.newWorkflowStub(WeatherWorkflow.class, workflowOptions);
 
-        WorkflowExecution execution = WorkflowClient.start(getWeatherWorkflow::getWeather, "London");
+        WorkflowExecution execution = WorkflowClient.start(getWeatherWorkflow::getWeather, cityNameReq);
         System.out.println("started workflow execution" + execution);
-        System.exit(0);
     }
 
 }

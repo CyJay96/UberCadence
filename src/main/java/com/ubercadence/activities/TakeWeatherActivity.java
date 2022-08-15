@@ -1,9 +1,9 @@
 package com.ubercadence.activities;
 
-import com.ubercadence.domain.dto.WeatherResponseDto;
+import com.ubercadence.domain.Weather;
 
 public interface TakeWeatherActivity {
 
-    WeatherResponseDto takeWeatherFromApi(String cityNameReq);
+    Weather takeWeatherFromApi(String cityNameReq);
 
 }
