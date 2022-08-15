@@ -4,6 +4,8 @@ import com.ubercadence.domain.Weather;
 import com.ubercadence.domain.dto.WeatherResponseDto;
 import com.ubercadence.repos.WeatherRepo;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -46,8 +48,8 @@ public class WeatherService {
         weatherRepo.save(weather);
     }
 
-    public Iterable<Weather> findWeather() {
-        return weatherRepo.findAll();
+    public Page<Weather> findWeather(Pageable pageable) {
+        return weatherRepo.findAll(pageable);
     }
 
 }

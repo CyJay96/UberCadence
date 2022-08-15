@@ -4,6 +4,10 @@ import com.ubercadence.domain.Weather;
 import com.ubercadence.workflow.WorkflowStarter;
 import com.ubercadence.service.WeatherService;
 import com.ubercadence.workflow.WorkflowWorker;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +26,11 @@ public class WeatherController {
     }
 
     @GetMapping("/weather")
-    public String findWeather(Model model) {
-        Iterable<Weather> weatherList = weatherService.findWeather();
-        model.addAttribute("weatherList", weatherList);
+    public String findWeather(Model model,
+                              @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Weather> weatherPage = weatherService.findWeather(pageable);
+        model.addAttribute("weatherPage", weatherPage);
+        model.addAttribute("url", "/weather");
         return "weather";
     }
 
