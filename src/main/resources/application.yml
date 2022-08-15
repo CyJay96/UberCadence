@@ -9,8 +9,8 @@ spring:
     password: ${PG_DB_PASS:postgres}
   jpa:
     hibernate:
-      ddl-auto: update
-    generate-ddl: true
+      ddl-auto: validate
+    generate-ddl: false
     show-sql: false
 
 openweathermap:
