@@ -28,3 +28,28 @@ You can use any libraries, any services that can be used for task completion.
 Cadence deployed in docker.  
 Workflow worker and Activity worker launched locally or in docker.  
 We`re launching a workflow using workflow launcher HTTP route.
+
+# **Get Started**
+
+## **Run Cadence Server**
+
+Run Cadence Server using Docker Compose:
+
+    docker-compose up
+
+
+## **Register the Domain**
+
+Check that the domain is indeed registered:
+
+    docker run --network=host --rm ubercadence/cli:master --do weather-domain domain describe
+
+To register the domain, run the following command once before running any samples:
+
+    docker run --network=host --rm ubercadence/cli:master --do weather-domain domain register
+
+## **See Cadence UI**
+
+The Cadence Server running in a docker container includes a Web UI.
+
+Connect to [http://localhost:8088](http://localhost:8088).

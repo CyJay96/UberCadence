@@ -13,7 +13,6 @@ public class StoreWeatherActivityImpl implements StoreWeatherActivity {
     @Override
     public void saveWeather(final Weather weather) {
         weatherService.save(weather);
-        System.out.println("Weather saved in a DB");
     }
 
 }

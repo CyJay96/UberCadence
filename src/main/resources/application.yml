@@ -11,4 +11,7 @@ spring:
     hibernate:
       ddl-auto: update
     generate-ddl: true
-    show-sql: true
+    show-sql: false
+
+openweathermap:
+  appid: ${OPEN_WEATHER_MAP_APPID:82383c72f2b900e1b80d072c63bc4542}

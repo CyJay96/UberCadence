@@ -3,6 +3,7 @@ package com.ubercadence.service;
 import com.ubercadence.domain.Weather;
 import com.ubercadence.domain.dto.WeatherResponseDto;
 import com.ubercadence.repos.WeatherRepo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,9 +22,10 @@ public class WeatherService {
         this.weatherRepo = weatherRepo;
     }
 
-    public Weather takeWeather(String cityNameReq) {
-        String weather_appid = "82383c72f2b900e1b80d072c63bc4542";
+    @Value("${openweathermap.appid}")
+    private String weather_appid;
 
+    public Weather takeWeather(String cityNameReq) {
         String url = "https://api.openweathermap.org/data/2.5/weather?q=" + cityNameReq + "&APPID=" + weather_appid;
         WeatherResponseDto weatherResponseDto = restTemplate
                 .postForObject(url, Collections.emptyList(), WeatherResponseDto.class);
