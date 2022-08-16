@@ -14,4 +14,9 @@ spring:
     show-sql: false
 
 openweathermap:
-  appid: ${OPEN_WEATHER_MAP_APPID:82383c72f2b900e1b80d072c63bc4542}
+  appid: 82383c72f2b900e1b80d072c63bc4542
+
+cadence:
+  domain: weather-domain
+  default-task-list: cadence-weather-taskList
+  workflow-id: weather-workflow-id

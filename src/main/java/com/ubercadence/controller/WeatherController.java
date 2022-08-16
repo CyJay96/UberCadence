@@ -1,9 +1,9 @@
 package com.ubercadence.controller;
 
 import com.ubercadence.domain.Weather;
-import com.ubercadence.workflow.WorkflowStarter;
 import com.ubercadence.service.WeatherService;
 import com.ubercadence.workflow.WorkflowWorker;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,15 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequiredArgsConstructor
 public class WeatherController {
 
     private final WeatherService weatherService;
     private final WorkflowWorker workflowWorker;
-
-    public WeatherController(WeatherService weatherService, WorkflowWorker workflowWorker) {
-        this.weatherService = weatherService;
-        this.workflowWorker = workflowWorker;
-    }
 
     @GetMapping("/weather")
     public String findWeather(Model model,
@@ -36,8 +32,9 @@ public class WeatherController {
 
     @PostMapping("/weather")
     public String addWeather(@RequestParam String cityNameReq) {
-        WorkflowStarter.startWorkflowStarter(cityNameReq);
-        workflowWorker.startWorkflowWorker();
+        if (cityNameReq != null && !cityNameReq.isEmpty()) {
+            workflowWorker.start(cityNameReq);
+        }
         return "redirect:/weather";
     }
 

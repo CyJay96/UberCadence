@@ -3,6 +3,7 @@ package com.ubercadence.service;
 import com.ubercadence.domain.Weather;
 import com.ubercadence.domain.dto.WeatherResponseDto;
 import com.ubercadence.repos.WeatherRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,15 +15,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 
 @Service
+@RequiredArgsConstructor
 public class WeatherService {
 
     private final RestTemplate restTemplate;
     private final WeatherRepo weatherRepo;
-
-    public WeatherService(RestTemplate restTemplate, WeatherRepo weatherRepo) {
-        this.restTemplate = restTemplate;
-        this.weatherRepo = weatherRepo;
-    }
 
     @Value("${openweathermap.appid}")
     private String weather_appid;

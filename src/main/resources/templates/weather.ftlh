@@ -2,23 +2,18 @@
 <#import "parts/pager.ftlh" as p>
 
 <@c.page>
-    <a class="btn btn-primary mt-2" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        Find out the weather
-    </a>
+    <h5>Find out the weather</h5>
 
-    <div class="collapse <#if message??>show</#if>" id="collapseExample">
-        <div class="mt-3">
-            <form action="/weather" method="post" enctype="multipart/form-data">
-                <div class="mt-3">
-                    <input class="form-control"
-                           type="text" name="cityNameReq" placeholder="Enter a city name"/>
-                </div>
+    <div class="mt-3">
+        <form action="/weather" method="post" enctype="multipart/form-data">
+            <div class="mt-3">
+                <input class="form-control" type="text" name="cityNameReq" placeholder="Enter a city name"/>
+            </div>
 
-                <div class="mt-3">
-                    <button type="submit" class="btn btn-primary">Find</button>
-                </div>
-            </form>
-        </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-outline-primary">Find</button>
+            </div>
+        </form>
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">

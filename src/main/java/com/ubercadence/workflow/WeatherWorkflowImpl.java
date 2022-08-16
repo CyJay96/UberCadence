@@ -22,8 +22,7 @@ public class WeatherWorkflowImpl implements WeatherWorkflow {
 
     @Override
     public Weather getWeather(String cityNameReq) {
-        Promise<Weather> weatherPromise =
-                Async.function(takeWeatherActivity::takeWeatherFromApi, cityNameReq);
+        Promise<Weather> weatherPromise = Async.function(takeWeatherActivity::takeWeatherFromApi, cityNameReq);
 
         storeWeatherActivity.saveWeather(weatherPromise.get());
 

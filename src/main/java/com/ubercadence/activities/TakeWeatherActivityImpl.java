@@ -2,13 +2,15 @@ package com.ubercadence.activities;
 
 import com.ubercadence.domain.Weather;
 import com.ubercadence.service.WeatherService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
 @SuppressWarnings("ALL")
+@RequiredArgsConstructor
 public class TakeWeatherActivityImpl implements TakeWeatherActivity {
 
-    @Autowired
-    private WeatherService weatherService;
+    private final WeatherService weatherService;
 
     @Override
     public Weather takeWeatherFromApi(final String cityNameReq) {
