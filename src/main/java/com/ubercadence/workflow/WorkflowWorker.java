@@ -31,8 +31,8 @@ public class WorkflowWorker {
     private final TakeWeatherActivity takeWeatherActivity;
     private final StoreWeatherActivity storeWeatherActivity;
 
-    private WeatherWorkflow getWeatherWorkflow;
-    private WorkerFactory factory;
+    private WorkflowClient workflowClient;
+    private WorkflowOptions workflowOptions;
 
     public WorkflowWorker(TakeWeatherActivity takeWeatherActivity, StoreWeatherActivity storeWeatherActivity) {
         this.takeWeatherActivity = takeWeatherActivity;
@@ -41,31 +41,31 @@ public class WorkflowWorker {
 
     @EventListener(ApplicationReadyEvent.class)
     @SuppressWarnings("CatchAndPrintStackTrace")
-    public void startWorkflowWorker() {
-        WorkflowClient workflowClient =
+    public void initWorkflow() {
+        workflowClient =
                 WorkflowClient.newInstance(
                         new WorkflowServiceTChannel(ClientOptions.defaultInstance()),
                         WorkflowClientOptions.newBuilder()
                                 .setDomain(domain)
                                 .build());
 
-        WorkflowOptions workflowOptions =
+        workflowOptions =
                 new WorkflowOptions.Builder()
                         .setTaskList(default_task_list)
                         .setWorkflowId(workflow_id)
                         .setWorkflowIdReusePolicy(WorkflowIdReusePolicy.AllowDuplicate)
                         .build();
+    }
 
-        getWeatherWorkflow = workflowClient.newWorkflowStub(WeatherWorkflow.class, workflowOptions);
+    public void startWorkflowWorker(String cityNameReq) {
+        WeatherWorkflow getWeatherWorkflow = workflowClient.newWorkflowStub(WeatherWorkflow.class, workflowOptions);
 
-        factory = WorkerFactory.newInstance(workflowClient);
+        WorkerFactory factory = WorkerFactory.newInstance(workflowClient);
         final Worker workerForCommonTaskList = factory.newWorker(default_task_list);
         workerForCommonTaskList.registerWorkflowImplementationTypes(WeatherWorkflowImpl.class);
 
         workerForCommonTaskList.registerActivitiesImplementations(takeWeatherActivity, storeWeatherActivity);
-    }
 
-    public void start(String cityNameReq) {
         WorkflowExecution execution = WorkflowClient.start(getWeatherWorkflow::getWeather, cityNameReq);
         System.out.println("started workflow execution" + execution);
         factory.start();

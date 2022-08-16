@@ -33,7 +33,7 @@ public class WeatherController {
     @PostMapping("/weather")
     public String addWeather(@RequestParam String cityNameReq) {
         if (cityNameReq != null && !cityNameReq.isEmpty()) {
-            workflowWorker.start(cityNameReq);
+            workflowWorker.startWorkflowWorker(cityNameReq);
         }
         return "redirect:/weather";
     }
