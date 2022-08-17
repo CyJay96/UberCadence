@@ -12,9 +12,9 @@ import com.uber.cadence.worker.WorkerFactory;
 import com.ubercadence.activities.StoreWeatherActivity;
 import com.ubercadence.activities.TakeWeatherActivity;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 
 @Component
 public class WorkflowWorker {
@@ -39,9 +39,8 @@ public class WorkflowWorker {
         this.storeWeatherActivity = storeWeatherActivity;
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    @SuppressWarnings("CatchAndPrintStackTrace")
-    public void initWorkflow() {
+    @PostConstruct
+    public void initWorkflowWorker() {
         workflowClient =
                 WorkflowClient.newInstance(
                         new WorkflowServiceTChannel(ClientOptions.defaultInstance()),
