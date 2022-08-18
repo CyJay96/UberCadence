@@ -6,39 +6,32 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.2</version>
+        <version>2.7.3</version>
         <relativePath/>
     </parent>
 
-    <groupId>com</groupId>
-    <artifactId>uber-cadence</artifactId>
+    <groupId>com.ubercadence</groupId>
+    <artifactId>workflow-worker</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>uber-cadence</name>
-    <description>uber-cadence</description>
-
-    <modules>
-        <module>activity-worker</module>
-        <module>workflow-worker</module>
-        <module>workflow-launcher</module>
-    </modules>
-
-    <packaging>pom</packaging>
+    <name>workflow-worker</name>
+    <description>workflow-worker</description>
 
     <properties>
         <java.version>11</java.version>
     </properties>
 
     <dependencies>
+        <!-- Modules -->
+        <dependency>
+            <groupId>com.ubercadence</groupId>
+            <artifactId>activity-worker</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- Spring Reactive Web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
 
         <!-- Uber Cadence -->
@@ -46,21 +39,6 @@
             <groupId>com.uber.cadence</groupId>
             <artifactId>cadence-client</artifactId>
             <version>3.7.2</version>
-        </dependency>
-
-        <!-- DataBase -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
         </dependency>
 
         <!-- Lombok -->

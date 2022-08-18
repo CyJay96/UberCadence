@@ -1,0 +1,24 @@
+server:
+  port: 8040
+
+host: localhost
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${PG_DB_HOST:localhost}:5432/uber_cadence?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=Europe/Minsk
+    username: ${PG_DB_USER:postgres}
+    password: ${PG_DB_PASS:postgres}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    generate-ddl: false
+    show-sql: false
+
+openweathermap:
+  appid: 82383c72f2b900e1b80d072c63bc4542
+
+cadence:
+  domain: weather-domain
+  default-task-list: cadence-weather-taskList
+  workflow-id: weather-workflow-id
